@@ -1,0 +1,394 @@
+/* new file: Persona 5 inspired theme with limited colors, bold type, and motion */
+
+/* Design Tokens (3-5 colors total) */
+:root {
+  --color-primary: #e60012; /* Red */
+  --color-bg: #000000; /* Black */
+  --color-fg: #ffffff; /* White */
+  --color-muted: #1a1a1a; /* Neutral dark */
+  --shadow-strong: 0 12px 30px rgba(0, 0, 0, 0.6);
+  --radius: 0.5rem;
+}
+
+* {
+  box-sizing: border-box;
+}
+html,
+body {
+  height: 100%;
+  margin: 0;
+  background: var(--color-bg);
+  color: var(--color-fg);
+  font-family: "Montserrat", system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  line-height: 1.5;
+  overflow: hidden;
+}
+
+.text-balance {
+  text-wrap: balance;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Background animated stripes */
+.bg-stripes {
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(-20deg, rgba(255, 255, 255, 0.03) 0 24px, rgba(255, 255, 255, 0.0) 24px 48px);
+  animation: move-stripes 12s linear infinite;
+  z-index: 0;
+}
+@keyframes move-stripes {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 600px 0;
+  }
+}
+/* subtle noise overlay */
+.bg-noise {
+  position: fixed;
+  inset: 0;
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="140" height="140"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="2" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23n)" opacity="0.04"/></svg>');
+  background-size: 300px 300px;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Splash */
+.splash {
+  position: fixed;
+  inset: 0;
+  background: var(--color-bg);
+  display: grid;
+  place-items: center;
+  z-index: 50;
+}
+.splash-inner {
+  text-align: center;
+  transform: skew(-6deg);
+}
+.splash-title {
+  font-family: "Bebas Neue", Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+  font-size: 96px;
+  margin: 0;
+  letter-spacing: 2px;
+  text-shadow: 3px 3px 0 var(--color-primary), -3px -3px 0 rgba(255, 255, 255, 0.25);
+  animation: splash-glitch 1.4s infinite;
+}
+.splash-sub {
+  margin-top: 12px;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  background: var(--color-primary);
+  color: var(--color-fg);
+  display: inline-block;
+  padding: 6px 12px;
+  transform: rotate(-2deg);
+}
+@keyframes splash-glitch {
+  0%,
+  100% {
+    transform: translate(0, 0) skew(-6deg);
+  }
+  20% {
+    transform: translate(-2px, 1px) skew(-6deg) rotate(-0.3deg);
+  }
+  40% {
+    transform: translate(2px, -1px) skew(-6deg) rotate(0.3deg);
+  }
+  60% {
+    transform: translate(-1px, -2px) skew(-6deg);
+  }
+  80% {
+    transform: translate(1px, 2px) skew(-6deg);
+  }
+}
+
+/* App bar */
+.app-header {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 24px;
+  border-bottom: 3px solid var(--color-primary);
+  background: linear-gradient(0deg, var(--color-muted), #000);
+  box-shadow: var(--shadow-strong);
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.brand-badge {
+  font-family: "Bebas Neue", Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+  display: inline-grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 8px;
+  background: var(--color-primary);
+  color: var(--color-fg);
+  font-size: 28px;
+  transform: rotate(-6deg);
+  box-shadow: 0 6px 0 #7a0009;
+}
+.brand-title {
+  font-weight: 900;
+  font-size: 26px;
+  letter-spacing: 1px;
+  text-shadow: 2px 2px 0 #7a0009;
+}
+
+/* Layout */
+.app-main {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1.3fr 0.7fr;
+  gap: 20px;
+  padding: 20px;
+  height: calc(100vh - 82px);
+}
+
+.player-panel,
+.playlist-panel {
+  background: #0a0a0a;
+  border: 3px solid var(--color-primary);
+  box-shadow: var(--shadow-strong);
+  padding: 18px;
+  border-radius: 14px;
+  clip-path: polygon(0 0, 98% 0, 100% 10%, 100% 100%, 2% 100%, 0 90%);
+}
+
+.art-and-info {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 16px;
+  height: 100%;
+}
+
+.album-art-wrap {
+  position: relative;
+  border: 3px solid var(--color-primary);
+  border-radius: 12px;
+  overflow: hidden;
+  transform: rotate(-1.5deg);
+  background: #080808;
+}
+.album-art {
+  display: block;
+  width: 100%;
+  height: 320px;
+  object-fit: cover;
+  filter: contrast(1.1) saturate(1.1);
+}
+.viz-canvas {
+  position: absolute;
+  inset: 0;
+  mix-blend-mode: screen;
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+.track-info .title {
+  font-family: "Bebas Neue", Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+  font-size: 42px;
+  margin: 0 0 6px 0;
+  transform: skew(-6deg);
+}
+.track-info .artist {
+  margin: 0 0 16px 0;
+  opacity: 0.85;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.time-row {
+  display: grid;
+  grid-template-columns: 52px 1fr 52px;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.progress-wrap {
+  width: 100%;
+}
+.progress-bar {
+  width: 100%;
+  height: 16px;
+  background: #141414;
+  border: 2px solid var(--color-primary);
+  border-radius: 999px;
+  overflow: hidden;
+  position: relative;
+}
+.progress-fill {
+  height: 100%;
+  width: 0%;
+  background: var(--color-primary);
+  box-shadow: inset 0 -8px 0 rgba(0, 0, 0, 0.35);
+  transition: width 0.08s linear;
+}
+
+.controls {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin: 12px 0 10px;
+}
+
+.btn {
+  appearance: none;
+  border: none;
+  cursor: pointer;
+  font-weight: 900;
+  letter-spacing: 0.02em;
+  color: var(--color-fg);
+  transform: skew(-8deg);
+  padding: 10px 16px;
+  border-radius: 8px;
+  transition: transform 120ms ease, box-shadow 120ms ease, background 120ms ease;
+  box-shadow: 0 6px 0 #111;
+  user-select: none;
+}
+.btn:focus {
+  outline: 2px dashed var(--color-fg);
+  outline-offset: 2px;
+}
+
+.btn-primary {
+  background: var(--color-primary);
+  box-shadow: 0 6px 0 #7a0009;
+}
+.btn-accent {
+  background: var(--color-fg);
+  color: #000;
+  box-shadow: 0 6px 0 #bfbfbf;
+}
+.btn-ghost {
+  background: #111;
+  border: 2px solid var(--color-primary);
+}
+
+.btn:hover {
+  animation: btn-pop 180ms ease-out;
+}
+.btn:active {
+  transform: translateY(4px) skew(-8deg) scale(0.98);
+  box-shadow: 0 2px 0 #111;
+}
+@keyframes btn-pop {
+  0% {
+    transform: skew(-8deg) scale(1);
+  }
+  60% {
+    transform: skew(-8deg) scale(1.07) rotate(-0.8deg);
+  }
+  100% {
+    transform: skew(-8deg) scale(1.02);
+  }
+}
+
+/* Volume slider */
+.volume-row {
+  margin-top: 2px;
+}
+input[type="range"] {
+  width: 100%;
+  appearance: none;
+  height: 10px;
+  background: #111;
+  border: 2px solid var(--color-primary);
+  border-radius: 999px;
+}
+input[type="range"]::-webkit-slider-thumb {
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--color-fg);
+  border: 2px solid #000;
+  box-shadow: 0 2px 0 #bfbfbf;
+  cursor: pointer;
+}
+
+/* Playlist */
+.playlist-panel {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.playlist-title {
+  font-family: "Bebas Neue", Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+  font-size: 28px;
+  margin: 0 0 12px 0;
+  transform: skew(-6deg);
+}
+.playlist {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  overflow: auto;
+  border-top: 2px dashed var(--color-primary);
+  height: 100%;
+}
+.playlist-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-bottom: 1px dashed #2a2a2a;
+  cursor: pointer;
+}
+.playlist-item:hover {
+  background: #0f0f0f;
+  animation: item-shake 180ms ease-in-out;
+}
+.playlist-item.active {
+  background: var(--color-primary);
+  color: var(--color-fg);
+}
+@keyframes item-shake {
+  0% {
+    transform: rotate(0deg);
+  }
+  30% {
+    transform: rotate(-1deg);
+  }
+  60% {
+    transform: rotate(1deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+/* Responsive */
+@media (max-width: 980px) {
+  .app-main {
+    grid-template-columns: 1fr;
+    height: auto;
+    overflow: auto;
+  }
+  .art-and-info {
+    grid-template-columns: 1fr;
+  }
+  .album-art {
+    height: 260px;
+  }
+}

@@ -1,0 +1,83 @@
+new file: UI layout with Persona 5 inspired structure 
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Persona 5 Music Player</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+     Fonts: Headings + Body (2 families max) 
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@500;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+     Animated diagonal stripes background 
+    <div class="bg-stripes" aria-hidden="true"></div>
+    <div class="bg-noise" aria-hidden="true"></div>
+
+     Splash overlay 
+    <div id="splash" class="splash" role="dialog" aria-modal="true" aria-label="Loading">
+      <div class="splash-inner">
+        <h1 class="splash-title">P5 Player</h1>
+        <p class="splash-sub">Press Start</p>
+      </div>
+    </div>
+
+    <header class="app-header">
+      <div class="brand">
+        <span class="brand-badge">P5</span>
+        <h1 class="brand-title">Music Player</h1>
+      </div>
+      <button id="loadBtn" class="btn btn-primary">
+        Load Songs
+      </button>
+    </header>
+
+    <main class="app-main">
+      <section class="player-panel">
+        <div class="art-and-info">
+          <div class="album-art-wrap">
+            <img id="albumArt" class="album-art" src="./assets/images/placeholder-art.jpg" alt="Album art placeholder" />
+            <canvas id="vizCanvas" class="viz-canvas" aria-hidden="true"></canvas>
+          </div>
+
+          <div class="track-info">
+            <h2 id="trackTitle" class="title text-balance">Sample Track</h2>
+            <p id="trackArtist" class="artist">Unknown Artist</p>
+
+            <div class="time-row">
+              <span id="elapsed" class="time">0:00</span>
+              <div class="progress-wrap">
+                <div id="progressBar" class="progress-bar">
+                  <div id="progressFill" class="progress-fill"></div>
+                </div>
+              </div>
+              <span id="duration" class="time">0:00</span>
+            </div>
+
+            <div class="controls">
+              <button id="prevBtn" class="btn btn-ghost" aria-label="Previous">⏮</button>
+              <button id="playBtn" class="btn btn-accent" aria-label="Play/Pause">▶</button>
+              <button id="nextBtn" class="btn btn-ghost" aria-label="Next">⏭</button>
+              <button id="stopBtn" class="btn btn-ghost" aria-label="Stop">⏹</button>
+            </div>
+
+            <div class="volume-row">
+              <label for="volume" class="sr-only">Volume</label>
+              <input id="volume" type="range" min="0" max="1" step="0.01" value="0.9" />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <aside class="playlist-panel" aria-label="Playlist">
+        <h3 class="playlist-title">Playlist</h3>
+        <ul id="playlist" class="playlist" role="list"></ul>
+      </aside>
+    </main>
+
+     Hidden audio element controlled via Web Audio API 
+    <audio id="audioEl" crossorigin="anonymous"></audio>
+
+    <script src="./renderer.js" defer></script>
+  </body>
+</html>

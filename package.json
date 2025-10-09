@@ -1,0 +1,13 @@
+{
+  "name": "my-v0-project",
+  "version": "0.1.0",
+  "main": "main.js",
+  "private": true,
+  "scripts": {
+    "start": "electron .",
+    "dev": "electron ."
+  },
+  "devDependencies": {
+    "electron": "^38.2.2"
+  }
+}
